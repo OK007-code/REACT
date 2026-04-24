@@ -1,6 +1,7 @@
 import React from "react";
 // import Studentinfo from "./Experiment4/Studentinfo";
-import Counter from "./Experiment5/Counter";
+// 
+import App from "./Experiment6/Form";
 // function App() {
 //   return (
 //     <div>
@@ -13,10 +14,19 @@ import Counter from "./Experiment5/Counter";
 //     </div>
 //   );
 // }
+// function App() {
+//   return(
+//      <>
+//       <Counter />
+//     </>
+//   );
+// }
+
+// export default App;
 function App() {
   return(
-     <>
-      <Counter />
+    <>
+      <App />
     </>
   );
 }
