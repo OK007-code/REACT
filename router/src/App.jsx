@@ -20,5 +20,6 @@ function App() {
     </Router>
   );
 }
+{/* <Router>*/}
 
 export default App;

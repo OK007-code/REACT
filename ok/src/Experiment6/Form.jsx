@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 
-function App() {
+function Form() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,26 +9,31 @@ function App() {
   const [errors, setErrors] = useState({});
   const [users, setUsers] = useState([]);
 
-  // 🔹 useEffect (API fetch - hidden, just for requirement)
+  // useEffect for API Fetch
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(res => res.json())
-      .then(data => console.log("API fetched"))  // just logging
+      .then(data => console.log("API fetched successfully"))
       .catch(err => console.log(err));
   }, []);
 
-  // 🔹 Validation
+  // Validation
   const validate = () => {
     let newErrors = {};
 
-    if (!name) newErrors.name = "Name is required";
-    if (!email.includes("@")) newErrors.email = "Valid email required";
-    if (password.length < 6) newErrors.password = "Min 6 characters";
+    if (!name)
+      newErrors.name = "Name is required";
+
+    if (!email || !email.includes("@"))
+      newErrors.email = "Valid email required";
+
+    if (password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
 
     return newErrors;
   };
 
-  // 🔹 Submit
+  // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -38,7 +42,9 @@ function App() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
+
       setUsers([...users, { name, email }]);
+
       setErrors({});
       setName("");
       setEmail("");
@@ -47,77 +53,103 @@ function App() {
   };
 
   return (
-    <div style={{
-      backgroundColor: "#ea97cd",
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    }}>
-
-      <div style={{
-        backgroundColor: "white",
-        padding: "30px",
-        borderRadius: "10px",
-        boxShadow: "0 4px 10px rgba(167, 229, 236, 0.84)",
-        width: "350px",
-        textAlign: "center"
-      }}>
-
-        <h2 style={{ color: "white", backgroundColor: "#56bce0", padding: "10px", borderRadius: "5px" , fontFamily: "emoji" }}>Registration Form</h2>
+    <div
+      style={{
+        backgroundColor: "#e96d78",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "30px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 10px rgba(122, 30, 30, 0.84)",
+          width: "350px",
+          textAlign: "center",
+        }}
+      >
+        <h2
+          style={{
+            color: "white",
+            backgroundColor: "#881c1c",
+            padding: "10px",
+            borderRadius: "5px",
+            fontFamily: "emoji",
+          }}
+        >
+          Registration Form
+        </h2>
 
         <form onSubmit={handleSubmit}>
 
-          <input 
-            name="name"
+          <input
             type="text"
             placeholder="Enter Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            style={{ width: "100%", margin: "8px 0", padding: "8px" }}
+            style={{
+              width: "100%",
+              margin: "8px 0",
+              padding: "8px",
+            }}
           />
           <p style={{ color: "red" }}>{errors.name}</p>
 
           <input
-            name="email"
             type="email"
             placeholder="Enter Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={{ width: "100%", margin: "8px 0", padding: "8px" }}
+            style={{
+              width: "100%",
+              margin: "8px 0",
+              padding: "8px",
+            }}
           />
           <p style={{ color: "red" }}>{errors.email}</p>
 
           <input
-            name="password"
             type="password"
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ width: "100%", margin: "8px 0", padding: "8px" }}
+            style={{
+              width: "100%",
+              margin: "8px 0",
+              padding: "8px",
+            }}
           />
           <p style={{ color: "red" }}>{errors.password}</p>
 
-          <button type="submit" style={{
-            backgroundColor: "#62eb9f",
-            color: "white",
-            padding: "8px 15px",
-            border: "none",
-            marginTop: "10px",
-            fontFamily: "emoji"
-          }}>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#155c3b",
+              color: "white",
+              padding: "8px 15px",
+              border: "none",
+              borderRadius: "5px",
+              marginTop: "10px",
+              cursor: "pointer",
+              fontFamily: "emoji",
+            }}
+          >
             Register
           </button>
-
         </form>
 
-        {/* Success Message */}
         {users.length > 0 && (
-          <p style={{ color: "green" , fontFamily: "emoji" }}>Registration Successful!</p>
+          <p style={{ color: "green", fontFamily: "emoji" }}>
+            Registration Successful!
+          </p>
         )}
 
-        {/* Registered Users */}
         <h3>Registered Users</h3>
+
         <ul>
           {users.map((user, index) => (
             <li key={index}>
@@ -125,10 +157,9 @@ function App() {
             </li>
           ))}
         </ul>
-
       </div>
     </div>
   );
 }
 
-export default App;
+export default Form;
